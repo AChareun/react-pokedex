@@ -1,0 +1,15 @@
+@import '../../styles/variables';
+
+.Footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: $primary-color;
+}
+
+.Footer a {
+    color: $secondary-color;
+    text-decoration: none;
+}
