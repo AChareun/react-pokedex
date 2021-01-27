@@ -1,2 +1,7 @@
 @import "./styles/reset";
-@use "./styles/variables";
+@import "./styles/variables";
+
+body {
+	background-color: $primary-color;
+	font-family: $primary-font-family;
+}
