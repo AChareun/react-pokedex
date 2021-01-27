@@ -1,0 +1,18 @@
+@import '../../styles/variables';
+
+.Item {
+    display: flex;
+    flex-direction: column;
+    grid-column: auto;
+    grid-row: auto;
+    background-color: #CDCDCD;
+    border: 2px solid $border-dark;
+    border-radius: 4px;
+    box-shadow: black 3px 3px 15px 0px;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+.Item img {
+    height: auto;
+}
