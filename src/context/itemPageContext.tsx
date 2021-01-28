@@ -1,0 +1,37 @@
+import React, { ReactNode, useContext, useReducer } from "react";
+import itemPageReducer from "../reducer/itemPageReducer";
+import { ItemPageContextState } from "../typings/context.d";
+
+const contextInitialState: ItemPageContextState = {
+	isLoading: false,
+	itemList: [],
+	previous: null,
+	next: null,
+	totalResult: 0,
+};
+
+const ItemPageContext = React.createContext<{
+	state: ItemPageContextState;
+	dispatch: React.Dispatch<any>;
+}>({ state: contextInitialState, dispatch: () => null });
+
+const useItemPageContext = () => {
+	return useContext(ItemPageContext);
+};
+
+const ItemPageProvider = ({ children }: { children: ReactNode }) => {
+	const [state, dispatch] = useReducer(itemPageReducer, contextInitialState);
+
+	return (
+		<ItemPageContext.Provider
+			value={{
+				state,
+				dispatch,
+			}}
+		>
+			{children}
+		</ItemPageContext.Provider>
+	);
+};
+
+export { useItemPageContext, ItemPageContext, ItemPageProvider };
