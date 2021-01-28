@@ -1,41 +1,54 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 // import PropTypes from 'prop-types'
 
-import styles from './ItemList.module.scss';
-import Item from '../Item/Item';
-
-const apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
+import styles from "./ItemList.module.scss";
+import Item from "../Item/Item";
+import { useItemPageContext } from "../../context/itemPageContext";
+import { ReducerActions } from "../../typings/reducer.d";
 
 const ItemList: React.FC = () => {
-    const [dataList, setDataList] = useState<any[] | null>(null);
+	const { state, dispatch } = useItemPageContext();
+	const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon/");
 
-    const getResults = async (): Promise<void> => {
-        const data = await fetch(apiUrl).then(r => r.json());
-        const results: any[] = data.results;
+	const fetchData = async (): Promise<void> => {
+		const data = await fetch(url).then((r) => r.json());
 
-        console.log(results);
-        setDataList(results);
-    }
+		const { results: itemList, previous, next } = data;
 
-    useEffect(() => {
-        getResults();
-    }, [])
+		dispatch({
+			type: ReducerActions.ChangePage,
+			payload: { itemList, previous, next },
+		});
+	};
 
-    return (
-        <section className={styles['Item-list']}>
-            {dataList?.map((dataItem, index) => {
-                const { name, url } = dataItem;
-                return (
-                    <Item key={index} name={name} url={url}/>
-                );
-            })}
-        </section>
-    )
-}
+	const changePage = (newUrl: string | null): void => {
+        if (newUrl) {
+            setUrl(newUrl);
+        }
 
-ItemList.propTypes = {
+        return
+	};
 
-}
+	useEffect(() => {
+		fetchData();
+	}, [url]);
 
-export default ItemList
+	return (
+		<React.Fragment>
+            <div>
+                <button onClick={() => changePage(state.previous)} >Prev</button>
+                <button onClick={() => changePage(state.next)} >Next</button>
+            </div>
+			<section className={styles["Item-list"]}>
+				{state.itemList?.map((item, index) => {
+					const { name, url } = item;
+					return <Item key={index} name={name} url={url} />;
+				})}
+			</section>
+		</React.Fragment>
+	);
+};
 
+ItemList.propTypes = {};
+
+export default ItemList;

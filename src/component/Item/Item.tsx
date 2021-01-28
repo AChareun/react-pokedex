@@ -16,7 +16,7 @@ const Item: React.FC<{ name: string; url: string }> = (props) => {
 
 	useEffect(() => {
 		getPokemonData();
-	}, []);
+	}, [url]);
 
 	const { sprites: {front_default: sprite} } = pokemon;
 
