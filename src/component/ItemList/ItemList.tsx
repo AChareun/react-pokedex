@@ -22,6 +22,10 @@ const ItemList: React.FC = () => {
 	};
 
 	const changePage = (newUrl: string | null): void => {
+		dispatch({
+			type: ReducerActions.SetLoading,
+			payload: { isLoading: true }
+		})
         if (newUrl) {
             setUrl(newUrl);
         }
@@ -40,7 +44,7 @@ const ItemList: React.FC = () => {
                 <button onClick={() => changePage(state.next)} >Next</button>
             </div>
 			<section className={styles["Item-list"]}>
-				{state.itemList?.map((item, index) => {
+				{state.isLoading ? <h2>Loading...</h2> : state.itemList?.map((item, index) => {
 					const { name, url } = item;
 					return <Item key={index} name={name} url={url} />;
 				})}

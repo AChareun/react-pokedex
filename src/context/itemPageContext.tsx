@@ -3,7 +3,7 @@ import itemPageReducer from "../reducer/itemPageReducer";
 import { ItemPageContextState } from "../typings/context.d";
 
 const contextInitialState: ItemPageContextState = {
-	isLoading: false,
+	isLoading: true,
 	itemList: [],
 	previous: null,
 	next: null,

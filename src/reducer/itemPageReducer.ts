@@ -1,5 +1,5 @@
-import { ItemPageContextState } from "../typings/context.d";
-import { ItemPageReducerActions, ReducerActions } from "../typings/reducer.d";
+import {ItemPageContextState} from "../typings/context.d";
+import {ItemPageReducerActions, ReducerActions} from "../typings/reducer.d";
 
 const itemPageReducer = (
 	state: ItemPageContextState,
@@ -12,13 +12,21 @@ const itemPageReducer = (
                 ...state,
                 itemList,
                 previous,
-                next
+                next,
+                isLoading: false,
+            }
+
+        case ReducerActions.SetLoading:
+            const { isLoading } = action.payload;
+            return {
+                ...state,
+                isLoading
             }
 
         default:
+            return state;
             break;
     }
-	return state;
 };
 
 export default itemPageReducer;
