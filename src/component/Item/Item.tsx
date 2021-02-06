@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link, useRouteMatch } from "react-router-dom";
 
 import styles from "./Item.module.scss";
 
@@ -8,6 +9,8 @@ const Item: React.FC<{ name: string; url: string }> = (props) => {
 	});
 	const { name, url } = props;
 
+	const match = useRouteMatch();
+
 	const getPokemonData = async (): Promise<void> => {
 		const pokemonData = await fetch(url).then((r) => r.json());
 
@@ -15,7 +18,7 @@ const Item: React.FC<{ name: string; url: string }> = (props) => {
 	};
 
 	useEffect(() => {
-		getPokemonData();
+		getPokemonData().catch(e => console.log(e));
 	}, [url]);
 
 	const { sprites: {front_default: sprite} } = pokemon;
@@ -24,7 +27,11 @@ const Item: React.FC<{ name: string; url: string }> = (props) => {
 		<article className={styles["Item"]}>
 			<img src={sprite} alt={name} />
 			<div>
-				<h4>{name}</h4>
+				<h4>
+					<Link to={`/pokemon`}>
+						{name}
+					</Link>
+				</h4>
 			</div>
 		</article>
 	);

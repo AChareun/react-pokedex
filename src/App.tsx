@@ -1,4 +1,5 @@
 import React from "react";
+import { Switch, Route, Link } from 'react-router-dom';
 
 import styles from "./App.module.scss";
 import Header from "./component/Header/Header";
@@ -11,10 +12,17 @@ function App() {
 	return (
 		<div className={styles["App"]}>
 			<Header />
-			<ItemPageProvider>
-				<Paginator />
-				<ItemList />
-			</ItemPageProvider>
+				<Switch>
+					<Route exact path="/">
+						<ItemPageProvider>
+							<Paginator />
+							<ItemList />
+						</ItemPageProvider>
+					</Route>
+					<Route path="/pokemon">
+						<h1>Hello, World!</h1>
+					</Route>
+				</Switch>
 			<Footer />
 		</div>
 	);
