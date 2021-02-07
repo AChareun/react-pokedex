@@ -13,7 +13,7 @@ type ActionMap<M extends { [index: string]: any }> = {
 
 export enum ReducerActions {
 	ChangePage = "CHANGE_PAGE",
-	SetLoading = "SET_LOADING",
+	LoadPageData = "LOAD_PAGE_DATA",
 }
 
 /**
@@ -24,12 +24,12 @@ export enum ReducerActions {
 
 type ItemPagePayload = {
 	[ReducerActions.ChangePage]: {
+		currentPage: string | null;
+	};
+	[ReducerActions.LoadPageData]: {
 		itemList: PageItem[];
 		previous: string | null;
 		next: string | null;
-	};
-	[ReducerActions.SetLoading]: {
-		isLoading: boolean;
 	}
 }
 

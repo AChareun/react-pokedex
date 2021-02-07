@@ -1,10 +1,10 @@
 import React, { ReactNode, useContext, useReducer } from "react";
 import itemPageReducer from "../reducer/itemPageReducer";
-import { ItemPageContextState } from "../typings/context.d";
+import { ItemPageContextState } from "../typings/context";
 
 const contextInitialState: ItemPageContextState = {
-	isLoading: true,
 	itemList: [],
+	currentPage: null,
 	previous: null,
 	next: null,
 	totalResult: 0,

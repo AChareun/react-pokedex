@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import styles from "./Item.module.scss";
 
@@ -8,8 +8,6 @@ const Item: React.FC<{ name: string; url: string }> = (props) => {
 		sprites: {front_default: ''},
 	});
 	const { name, url } = props;
-
-	const match = useRouteMatch();
 
 	const getPokemonData = async (): Promise<void> => {
 		const pokemonData = await fetch(url).then((r) => r.json());

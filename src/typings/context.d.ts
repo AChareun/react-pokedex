@@ -10,8 +10,8 @@ export interface PageItem {
 }
 
 export interface ItemPageContextState {
-    isLoading: boolean;
     itemList: PageItem[];
+    currentPage: string | null;
     previous: string | null;
     next: string | null;
     totalResult: number;

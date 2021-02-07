@@ -1,50 +1,39 @@
 import React, { useEffect, useState } from "react";
-// import PropTypes from 'prop-types'
 
 import styles from "./ItemList.module.scss";
 import Item from "../Item/Item";
 import { useItemPageContext } from "../../context/itemPageContext";
 import { ReducerActions } from "../../typings/reducer.d";
 
+const baseUrl = "https://pokeapi.co/api/v2/pokemon/";
+
 const ItemList: React.FC = () => {
 	const { state, dispatch } = useItemPageContext();
-	const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon/");
+	const [isLoading, setIsLoading] = useState(true);
 
 	const fetchData = async (): Promise<void> => {
-		const data = await fetch(url).then((r) => r.json());
+		const urlToFetch = state.currentPage || baseUrl;
+		const data = await fetch(urlToFetch).then((r) => r.json());
 
 		const { results: itemList, previous, next } = data;
 
 		dispatch({
-			type: ReducerActions.ChangePage,
+			type: ReducerActions.LoadPageData,
 			payload: { itemList, previous, next },
 		});
 	};
 
-	const changePage = (newUrl: string | null): void => {
-		dispatch({
-			type: ReducerActions.SetLoading,
-			payload: { isLoading: true }
-		})
-        if (newUrl) {
-            setUrl(newUrl);
-        }
-
-        return
-	};
-
 	useEffect(() => {
-		fetchData();
-	}, [url]);
+		setIsLoading(true);
+		fetchData().then(r => {
+			setIsLoading(false);
+		});
+	}, [state.currentPage]);
 
 	return (
 		<React.Fragment>
-            <div>
-                <button onClick={() => changePage(state.previous)} >Prev</button>
-                <button onClick={() => changePage(state.next)} >Next</button>
-            </div>
 			<section className={styles["Item-list"]}>
-				{state.isLoading ? <h2>Loading...</h2> : state.itemList?.map((item, index) => {
+				{isLoading ? <h2>Loading...</h2> : state.itemList?.map((item, index) => {
 					const { name, url } = item;
 					return <Item key={index} name={name} url={url} />;
 				})}
@@ -52,7 +41,5 @@ const ItemList: React.FC = () => {
 		</React.Fragment>
 	);
 };
-
-ItemList.propTypes = {};
 
 export default ItemList;

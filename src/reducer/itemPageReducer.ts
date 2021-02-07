@@ -7,25 +7,24 @@ const itemPageReducer = (
 ): ItemPageContextState => {
     switch (action.type) {
         case ReducerActions.ChangePage:
-            const { itemList, previous, next } = action.payload;
+            const { currentPage } = action.payload;
+            return {
+                ...state,
+                currentPage,
+            }
+
+        case ReducerActions.LoadPageData:
+            const { itemList, next, previous } = action.payload;
+
             return {
                 ...state,
                 itemList,
-                previous,
                 next,
-                isLoading: false,
-            }
-
-        case ReducerActions.SetLoading:
-            const { isLoading } = action.payload;
-            return {
-                ...state,
-                isLoading
+                previous,
             }
 
         default:
             return state;
-            break;
     }
 };
 
