@@ -30,6 +30,7 @@ type ItemPagePayload = {
 		itemList: PageItem[];
 		previous: string | null;
 		next: string | null;
+		totalResults: number | null;
 	}
 }
 

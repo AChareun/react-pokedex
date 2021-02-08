@@ -14,7 +14,7 @@ export interface ItemPageContextState {
     currentPage: string | null;
     previous: string | null;
     next: string | null;
-    totalResult: number;
+    totalResults: number | null;
 }
 
 /**

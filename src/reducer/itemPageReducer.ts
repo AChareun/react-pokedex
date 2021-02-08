@@ -14,13 +14,14 @@ const itemPageReducer = (
             }
 
         case ReducerActions.LoadPageData:
-            const { itemList, next, previous } = action.payload;
+            const { itemList, next, previous, totalResults } = action.payload;
 
             return {
                 ...state,
                 itemList,
                 next,
                 previous,
+                totalResults,
             }
 
         default:

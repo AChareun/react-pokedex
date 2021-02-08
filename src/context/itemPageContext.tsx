@@ -7,7 +7,7 @@ const contextInitialState: ItemPageContextState = {
 	currentPage: null,
 	previous: null,
 	next: null,
-	totalResult: 0,
+	totalResults: 0,
 };
 
 const ItemPageContext = React.createContext<{

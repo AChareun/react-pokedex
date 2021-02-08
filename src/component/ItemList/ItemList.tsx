@@ -15,11 +15,11 @@ const ItemList: React.FC = () => {
 		const urlToFetch = state.currentPage || baseUrl;
 		const data = await fetch(urlToFetch).then((r) => r.json());
 
-		const { results: itemList, previous, next } = data;
+		const { results: itemList, previous, next, count: totalResults } = data;
 
 		dispatch({
 			type: ReducerActions.LoadPageData,
-			payload: { itemList, previous, next },
+			payload: { itemList, previous, next, totalResults },
 		});
 	};
 
