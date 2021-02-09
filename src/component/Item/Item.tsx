@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 
 import styles from "./Item.module.scss";
@@ -9,15 +9,15 @@ const Item: React.FC<{ name: string; url: string }> = (props) => {
 	});
 	const { name, url } = props;
 
-	const getPokemonData = async (): Promise<void> => {
+	const getPokemonData = useCallback(async (): Promise<void> => {
 		const pokemonData = await fetch(url).then((r) => r.json());
 
 		setPokemon(pokemonData);
-	};
+	}, [url]);
 
 	useEffect(() => {
 		getPokemonData().catch(e => console.log(e));
-	}, [url]);
+	}, [url, getPokemonData]);
 
 	const { sprites: {front_default: sprite} } = pokemon;
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useCallback, useEffect, useState} from "react";
 
 import styles from "./ItemList.module.scss";
 import Item from "../Item/Item";
@@ -9,7 +9,7 @@ const ItemList: React.FC = () => {
 	const { state, dispatch } = useItemPageContext();
 	const [isLoading, setIsLoading] = useState(true);
 
-	const fetchData = async (): Promise<void> => {
+	const fetchData = useCallback(async (): Promise<void> => {
 		const urlToFetch = state.currentPage;
 		const data = await fetch(urlToFetch).then((r) => r.json());
 
@@ -19,14 +19,14 @@ const ItemList: React.FC = () => {
 			type: ReducerActions.LoadPageData,
 			payload: { itemList, previous, next, totalResults },
 		});
-	};
+	}, [state.currentPage, dispatch]);
 
 	useEffect(() => {
 		setIsLoading(true);
 		fetchData().then(r => {
 			setIsLoading(false);
 		});
-	}, [state.currentPage]);
+	}, [state.currentPage, fetchData]);
 
 	return (
 		<React.Fragment>
