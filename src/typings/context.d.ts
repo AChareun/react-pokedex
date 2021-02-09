@@ -11,7 +11,7 @@ export interface PageItem {
 
 export interface ItemPageContextState {
     itemList: PageItem[];
-    currentPage: string | null;
+    currentPage: string;
     previous: string | null;
     next: string | null;
     totalResults: number | null;

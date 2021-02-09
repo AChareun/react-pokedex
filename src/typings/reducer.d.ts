@@ -24,7 +24,7 @@ export enum ReducerActions {
 
 type ItemPagePayload = {
 	[ReducerActions.ChangePage]: {
-		currentPage: string | null;
+		currentPage: string;
 	};
 	[ReducerActions.LoadPageData]: {
 		itemList: PageItem[];

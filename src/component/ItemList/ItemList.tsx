@@ -5,14 +5,12 @@ import Item from "../Item/Item";
 import { useItemPageContext } from "../../context/itemPageContext";
 import { ReducerActions } from "../../typings/reducer.d";
 
-const baseUrl = "https://pokeapi.co/api/v2/pokemon/";
-
 const ItemList: React.FC = () => {
 	const { state, dispatch } = useItemPageContext();
 	const [isLoading, setIsLoading] = useState(true);
 
 	const fetchData = async (): Promise<void> => {
-		const urlToFetch = state.currentPage || baseUrl;
+		const urlToFetch = state.currentPage;
 		const data = await fetch(urlToFetch).then((r) => r.json());
 
 		const { results: itemList, previous, next, count: totalResults } = data;
