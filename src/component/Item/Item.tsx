@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import styles from "./Item.module.scss";
 
 const Item: React.FC<{ name: string; url: string }> = (props) => {
-	const [pokemon, setPokemon] = useState<{ sprites: {front_default: any} }>({
+	const [pokemon, setPokemon] = useState<{ id: any, sprites: {front_default: any} }>({
+		id: '',
 		sprites: {front_default: ''},
 	});
 	const { name, url } = props;
@@ -19,14 +20,14 @@ const Item: React.FC<{ name: string; url: string }> = (props) => {
 		getPokemonData().catch(e => console.log(e));
 	}, [url, getPokemonData]);
 
-	const { sprites: {front_default: sprite} } = pokemon;
+	const { id, sprites: {front_default: sprite} } = pokemon;
 
 	return (
 		<article className={styles["Item"]}>
 			<img src={sprite} alt={name} />
 			<div>
 				<h4>
-					<Link to={`/pokemon`}>
+					<Link to={`/pokemon/${id}`}>
 						{name}
 					</Link>
 				</h4>

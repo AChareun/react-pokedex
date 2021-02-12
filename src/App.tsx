@@ -7,6 +7,7 @@ import Footer from "./component/Footer/Footer";
 import ItemList from "./component/ItemList/ItemList";
 import Paginator from "./component/Paginator/Paginator";
 import { ItemPageProvider } from "./context/itemPageContext";
+import PokemonView from "./component/PokemonView/PokemonView";
 
 function App() {
 	return (
@@ -19,8 +20,8 @@ function App() {
 							<ItemList />
 						</ItemPageProvider>
 					</Route>
-					<Route path="/pokemon">
-						<h1>Hello, World!</h1>
+					<Route path="/pokemon/:id">
+						<PokemonView />
 					</Route>
 				</Switch>
 			<Footer />
