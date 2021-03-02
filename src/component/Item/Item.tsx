@@ -27,7 +27,7 @@ const Item: React.FC<{ name: string; url: string }> = (props) => {
 			<img src={sprite} alt={name} />
 			<div>
 				<h4>
-					<Link to={`/pokemon/${id}`}>
+					<Link to={{pathname: `/pokemon/${id}`, state: {pokemon}}}>
 						{name}
 					</Link>
 				</h4>
