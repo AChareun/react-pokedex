@@ -7,7 +7,7 @@ const PokemonImg: FC<{sprites: IPokemon['sprites']}> = (props) => {
     const { sprites } = props;
     return (
         <React.Fragment>
-            {sprites?.front_default && <img className={styles['img']} src={sprites.front_default}/>}
+            {sprites?.front_default && <img className={styles['img']} src={sprites.front_default} alt={''}/>}
         </React.Fragment>
     );
 }
