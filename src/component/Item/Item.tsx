@@ -11,7 +11,7 @@ const Item: React.FC<{ name: string; url: string }> = (props) => {
 	const { name, url } = props;
 
 	const getPokemonData = useCallback(async (): Promise<void> => {
-		const {data: pokemonData} = await getPokemon(url);
+		const pokemonData = await getPokemon(url);
 
 		setPokemon(pokemonData);
 	}, [url]);
@@ -25,7 +25,7 @@ const Item: React.FC<{ name: string; url: string }> = (props) => {
 
 		return (
 			<article className={styles["Item"]}>
-				<img src={sprites?.front_default || ''} alt={name} />
+				<img src={sprites?.front_male_default || ''} alt={name} />
 				<div>
 					<h4>
 						<Link to={{pathname: `/pokemon/${id}`, state: {pokemon}}}>
