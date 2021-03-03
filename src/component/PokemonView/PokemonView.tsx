@@ -36,6 +36,19 @@ const PokemonView: React.FC = (props) => {
                     })}
                 </p>
                 <PokemonImg sprites={pokemon.sprites}/>
+                <div>
+                    <p>
+                        <span>Height: {pokemon.height} </span><span> Weight: {pokemon.weight}</span>
+                    </p>
+                </div>
+                <div>
+                    <h2>Abilities:</h2>
+                    <ul>
+                        {pokemon.abilities?.map((e, i) => {
+                            return <li key={i}>{e.ability.name}</li>
+                        })}
+                    </ul>
+                </div>
             </React.Fragment>
         )
     }
