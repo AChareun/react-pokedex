@@ -4,16 +4,18 @@ import styles from "./ItemList.module.scss";
 import Item from "../Item/Item";
 import { useItemPageContext } from "../../context/itemPageContext";
 import { ReducerActions } from "../../typings/reducer.d";
+import {getPokemonPage} from "../../adapters/pokeapi";
 
 const ItemList: React.FC = () => {
 	const { state, dispatch } = useItemPageContext();
 	const [isLoading, setIsLoading] = useState(true);
 
 	const fetchData = useCallback(async (): Promise<void> => {
-		const urlToFetch = state.currentPage;
-		const data = await fetch(urlToFetch).then((r) => r.json());
+		const itemsPerPage = 20;
+		const page = state.currentPage;
+		const data: any = await getPokemonPage(itemsPerPage, (page - 1) * itemsPerPage);
 
-		const { results: itemList, previous, next, count: totalResults } = data;
+		const { results: itemList, previous, next, count: totalResults } = data?.data;
 
 		dispatch({
 			type: ReducerActions.LoadPageData,
