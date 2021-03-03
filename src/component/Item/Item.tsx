@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 import styles from "./Item.module.scss";
 import {IPokemon} from "../../typings/general";
 import PokemonType from "../PokemonType/PokemonType";
+import {getPokemon} from "../../adapters/pokeapi";
 
 const Item: React.FC<{ name: string; url: string }> = (props) => {
 	const [pokemon, setPokemon] = useState<IPokemon>();
 	const { name, url } = props;
 
 	const getPokemonData = useCallback(async (): Promise<void> => {
-		const pokemonData = await fetch(url).then((r) => r.json());
+		const {data: pokemonData} = await getPokemon(url);
 
 		setPokemon(pokemonData);
 	}, [url]);

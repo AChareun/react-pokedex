@@ -8,20 +8,19 @@ const Paginator:React.FC = (props) => {
     const itemsPerPage = 20;
     const pages = state.totalResults ? _.range(1, Math.ceil(state.totalResults / itemsPerPage) + 1) : [];
 
-    const changePage = (newUrl: string | null): void => {
-        if (newUrl) {
+    const changePage = (page: number | null): void => {
+        if (page && page > 0 && page <= pages.length) {
             dispatch({
                 type: ReducerActions.ChangePage,
-                payload: { currentPage: newUrl }
+                payload: { currentPage: page }
             })
         }
         return
     };
 
     const getPagesToShow = () => {
-        const activePage = pages.findIndex((page, i) => {
-            const url = `https://pokeapi.co/api/v2/pokemon/?offset=${i * itemsPerPage}&limit=${itemsPerPage}`;
-            return url === state.currentPage;
+        const activePage = pages.findIndex((page) => {
+            return page === state.currentPage;
         })
 
         return _.range(activePage - 10, activePage + 10);
@@ -31,16 +30,15 @@ const Paginator:React.FC = (props) => {
 
     return (
         <div>
-            <button onClick={() => changePage(state.previous)} >Prev</button>
-            {pages && pages.map((page, i) => {
-                const pageUrl = `https://pokeapi.co/api/v2/pokemon/?offset=${i * itemsPerPage}&limit=${itemsPerPage}`;
-                return pagesDisplayed.includes(i) && (
-                    <button className={state.currentPage === pageUrl ? 'btn-active' : ''} onClick={() => changePage(pageUrl)}>
+            <button onClick={() => changePage(state.currentPage - 1)} >Prev</button>
+            {pages && pages.map((page) => {
+                return pagesDisplayed.includes(page) && (
+                    <button className={state.currentPage === page ? 'btn-active' : ''} onClick={() => changePage(page)}>
                         {page}
                     </button>
                 )
             })}
-            <button onClick={() => changePage(state.next)} >Next</button>
+            <button onClick={() => changePage(state.currentPage + 1)} >Next</button>
         </div>
     )
 }

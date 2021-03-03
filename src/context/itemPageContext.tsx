@@ -4,7 +4,7 @@ import { ItemPageContextState } from "../typings/context";
 
 const contextInitialState: ItemPageContextState = {
 	itemList: [],
-	currentPage: "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20",
+	currentPage: 1,
 	previous: null,
 	next: null,
 	totalResults: 0,
