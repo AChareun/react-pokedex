@@ -5,7 +5,7 @@ import styles from './PokemonImg.module.scss';
 
 const PokemonImg: FC<{sprites: IPokemon['sprites']}> = (props) => {
     const { sprites } = props;
-    const [currentSprite, setCurrentSprite] = useState('front_default');
+    const [currentSprite, setCurrentSprite] = useState('front_male_default');
 
     function toggleDirection() {
         setCurrentSprite((prev) => {
@@ -18,40 +18,28 @@ const PokemonImg: FC<{sprites: IPokemon['sprites']}> = (props) => {
     }
 
     function toggleGender() {
-        if (!sprites?.front_female) {
+        if (!sprites?.front_female_default) {
             return;
         }
 
         setCurrentSprite((prev) => {
             const spriteParams = prev.split('_');
             const gender = spriteParams[1];
-            spriteParams[1] = gender === 'default' ? 'female' : 'default';
+            spriteParams[1] = gender === 'male' ? 'female' : 'male';
 
             return spriteParams.join('_');
         })
     }
 
     function toggleShiny() {
-        if (!sprites?.front_shiny) {
+        if (!sprites?.front_male_shiny) {
             return
         }
 
         setCurrentSprite((prev) => {
             const spriteParams = prev.split('_');
-            const color = spriteParams[1];
-
-            if (spriteParams.length === 3) {
-                spriteParams[1] = spriteParams.pop() || '';
-                return spriteParams.join('_');
-            }
-
-            if (spriteParams[1] === 'female') {
-                spriteParams[1] = 'shiny';
-                spriteParams.push('female')
-                return spriteParams.join('_');
-            }
-
-            spriteParams[1] = color === 'default' ? 'shiny' : 'default';
+            const color = spriteParams[2];
+            spriteParams[2] = color === 'default' ? 'shiny' : 'default';
 
             return spriteParams.join('_');
         })
