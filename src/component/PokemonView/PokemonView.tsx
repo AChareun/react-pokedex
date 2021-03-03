@@ -14,9 +14,8 @@ const PokemonView: React.FC = (props) => {
     const [pokemon, setPokemon] = useState<IPokemon | undefined>(location.state?.pokemon);
 
     const getPokemonData = useCallback(async (): Promise<void> => {
-        const {data: pokemonData} = await getPokemon(parseInt(id));
+        const pokemonData = await getPokemon(parseInt(id));
 
-        console.log(pokemonData)
         setPokemon(pokemonData);
     }, [id]);
 
